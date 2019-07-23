@@ -1,8 +1,8 @@
 Done processing ./test/rrtpath_test.cc
 Done processing ./test/vertex_test.cc
 Done processing ./src/vertex.cc
-Done processing ./src/turtlebot_rrt.cc
-Done processing ./include/turtlebot_rrt/vertex.h
-./include/turtlebot_rrt/turtlebot_rrt.h:99:  Is this a non-const reference? If so, make const or use a pointer: std::vector<geometry_msgs::PoseStamped>& plan  [runtime/references] [2]
-Done processing ./include/turtlebot_rrt/turtlebot_rrt.h
+Done processing ./src/youibot_rrt.cc
+Done processing ./include/youibot_rrt/vertex.h
+./include/youibot_rrt/youibot_rrt.h:99:  Is this a non-const reference? If so, make const or use a pointer: std::vector<geometry_msgs::PoseStamped>& plan  [runtime/references] [2]
+Done processing ./include/youibot_rrt/youibot_rrt.h
 Total errors found: 1

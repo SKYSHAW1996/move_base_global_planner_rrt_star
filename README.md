@@ -27,8 +27,9 @@ cd [workspace]/src
 git clone https://github.com/jeshoward/turtlebot_rrt.git
 cd ..
 catkin_make
-source devel/setup.bash
+source ~/[workspace]/devel/setup.bash
 ```
+source ~/catkin_ws_project/devel/setup.bash
 
 ### Dependencies
 1. ROS Kinetic Kame [(Installation Instructions)](docs/README_DEPENDENCIES.md#ros)
