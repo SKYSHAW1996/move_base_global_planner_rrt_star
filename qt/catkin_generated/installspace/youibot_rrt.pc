@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: youibot_rrt
+Description: Description of youibot_rrt
+Version: 0.0.0
+Cflags: -I/usr/local/include
+Libs: -L/usr/local/lib -lyouibot_rrt
+Requires: roscpp pluginlib costmap_2d base_local_planner nav_core visualization_msgs

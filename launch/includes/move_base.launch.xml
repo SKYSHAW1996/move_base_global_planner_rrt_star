@@ -12,10 +12,11 @@
   <arg name="laser_topic" default="scan" />
   <arg name="custom_param_file" default="$(find turtlebot_navigation)/param/dummy.yaml"/>
   
-  <arg name="step_size" default="2.5"/>
-  <arg name="delta" default="$(eval arg('step_size') / 2)"/>
+  <arg name="step_size" default="0.25"/>
+  <arg name="delta" default="0.05"/>
   <arg name="max_iterations" default="200000"/>
-  <arg name="goal_radius" default="1.0"/> 
+  <arg name="goal_radius" default="0.8"/>    
+  <arg name="checking_radius" default="8"/> 
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">  
     <param name="base_global_planner" value="youibot_rrt/RRTPlanner"/>
@@ -24,16 +25,20 @@
     <rosparam file="$(find turtlebot_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />   
     <rosparam file="$(find turtlebot_navigation)/param/local_costmap_params.yaml" command="load" />   
     <rosparam file="$(find turtlebot_navigation)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find turtlebot_navigation)/param/dwa_local_planner_params.yaml" command="load" />
+	<!-- Local Planner Parameters -->
+    <rosparam file="$(find youibot_rrt)/params/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find youibot_rrt)/params/teb_local_planner_params.yaml" command="load"/>
+	<!-- Global Planner Parameters -->
     <rosparam file="$(find youibot_rrt)/config/move_base_params.yaml" command="load" />
-    <rosparam file="$(find turtlebot_navigation)/param/global_planner_params.yaml" command="load" />
+    <!--rosparam file="$(find turtlebot_navigation)/param/global_planner_params.yaml" command="load" /-->
     <rosparam file="$(find youibot_rrt)/config/rrt_global_planner_params.yaml" command="load" />
     <!-- external params file that could be loaded into the move_base namespace -->
     <rosparam file="$(arg custom_param_file)" command="load" />
     <param name="step_size_" value="$(arg step_size)"/>
     <param name="delta_" value="$(arg delta)"/>
     <param name="max_iterations_" value="$(arg max_iterations)"/>
-    <param name="goal_radius_" value="$(arg goal_radius)"/>    
+    <param name="goal_radius_" value="$(arg goal_radius)"/>  
+    <param name="checking_radius_" value="$(arg checking_radius)"/>  
     
     <!-- reset frame_id parameters using user input data -->
     <param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>

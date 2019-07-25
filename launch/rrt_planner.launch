@@ -63,7 +63,9 @@
   <arg name="step_size" default="0.25"/>
   <arg name="delta" default="0.05"/>
   <arg name="max_iterations" default="200000"/>
-  <arg name="goal_radius" default="0.8"/>      
+  <arg name="goal_radius" default="0.8"/>    
+  <arg name="checking_radius" default="8"/>   
+
   <include file="$(find youibot_rrt)/launch/includes/move_base.launch.xml">
     <arg name="custom_param_file" value="$(find youibot_rrt)/config/rrt_global_planner_params.yaml"/>
     <arg name="step_size" value="$(arg step_size)"/>

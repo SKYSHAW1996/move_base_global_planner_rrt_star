@@ -6,8 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Map1/Position1
-        - /Path1
-        - /Marker1
         - /Image1
       Splitter Ratio: 0.5
     Tree Height: 545
@@ -246,7 +244,7 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Alpha: 1
-      Buffer Length: 1
+      Buffer Length: 10
       Class: rviz/Path
       Color: 0; 0; 255
       Enabled: true
@@ -410,10 +408,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.0547967
+      Pitch: 1.56979632
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.0503959134
+      Yaw: 0.0253959224
     Saved: ~
 Window Geometry:
   Displays:

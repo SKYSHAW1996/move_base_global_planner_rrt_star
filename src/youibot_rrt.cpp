@@ -39,9 +39,10 @@ namespace youibot_rrt {
       node_handle_.getParam("/move_base/step_size_", step_size_);
       node_handle_.getParam("/move_base/delta_", delta_);
       node_handle_.getParam("/move_base/goal_radius_", goal_radius_);
+      node_handle_.getParam("/move_base/checking_radius_", checking_radius_);
       node_handle_.getParam("/move_base/max_iterations_", max_iterations_);
-      ROS_INFO("Step size: %.2f, goal radius: %.2f, delta: %.2f, max "
-               "iterations: %d", step_size_, goal_radius_, delta_,
+      ROS_INFO("Step size: %.2f, goal radius: %.2f, checking radius: %.2f, delta: %.2f, max "
+               "iterations: %d", step_size_, goal_radius_, checking_radius_, delta_,
                max_iterations_);
       current_iterations_ = 0;
 
@@ -49,8 +50,8 @@ namespace youibot_rrt {
       map_width_cells_ = costmap_-> getSizeInCellsX();
       map_height_cells_ = costmap_-> getSizeInCellsY();
 
-      if (!plan_succuse_flag)
-      {
+//      if (!plan_succuse_flag)
+//      {
         ROS_INFO("setting the obstacle_map");
         for (unsigned int iy = 0; iy < map_height_cells_; iy++)
         {
@@ -63,7 +64,7 @@ namespace youibot_rrt {
               obstacle_map_.push_back(true);
           }
         }
-      }
+//      }
 
       // Display info message
       ROS_INFO("RRT planner initialized successfully.");
@@ -91,8 +92,8 @@ namespace youibot_rrt {
               goal.pose.position.y);
 
     // reset path, iterations, vertex tree
-    if (!plan_succuse_flag)
-    {
+//    if (!plan_succuse_flag)
+//    {
       plan.clear();
       current_iterations_ = 0;
       ROS_INFO("Current iterations reset to %d.", current_iterations_);
@@ -135,19 +136,19 @@ namespace youibot_rrt {
         ROS_WARN("No path was found.");
         return false;
       }
-    }
-    else
-    {
-        ROS_DEBUG("Pose Goal: %.2f, %.2f", goal.pose.position.x,
-                  goal.pose.position.y);
-        ROS_DEBUG("Goal: %.2f, %.2f", x_goal_,y_goal_);
-        if(fabs(x_goal_ - goal.pose.position.x)>1e-5 && fabs(y_goal_ - goal.pose.position.y)>1e-5)
-        {
-            ROS_INFO("resetting and replanning");
-            plan_succuse_flag = false;
-        }
-        return true;
-    }
+//    }
+//    else
+//    {
+//        ROS_DEBUG("Pose Goal: %.2f, %.2f", goal.pose.position.x,
+//                  goal.pose.position.y);
+//        ROS_DEBUG("Goal: %.2f, %.2f", x_goal_,y_goal_);
+//        if(fabs(x_goal_ - goal.pose.position.x)>1e-5 && fabs(y_goal_ - goal.pose.position.y)>1e-5)
+//        {
+//            ROS_INFO("resetting and replanning");
+//            plan_succuse_flag = false;
+//        }
+//        return true;
+//    }
 
 
   }
@@ -297,12 +298,12 @@ namespace youibot_rrt {
        */
       //Select {q nearest} around q new within the radius r (check collision as well).
       float current_distance_cost = std::numeric_limits<float>::infinity();
-      float checking_radius = 4.0;
+      //float checking_radius = 4.0;
       std::vector<youibot_rrt::Vertex> neighbor_vertex_list_;
       for (youibot_rrt::Vertex v : vertex_list_)
       {
           current_distance_cost = GetDistance(v.get_location(), proposed_point);
-          if (current_distance_cost < checking_radius)
+          if (current_distance_cost < checking_radius_)
           {
               std::pair<float, float> current_point_inradius(v.get_location().first, v.get_location().second);
               if(IsSafe(current_point_inradius, proposed_point))
@@ -445,14 +446,14 @@ namespace youibot_rrt {
                                                p.pose.position.y,
                                                map_y);
       }
-      if (plan.size() > 1) 
-      {
-        plan_succuse_flag = true;
-      } 
-      else 
-      {
-        plan_succuse_flag = false;
-      }
+//      if (plan.size() > 1)
+//      {
+//        plan_succuse_flag = true;
+//      }
+//      else
+//      {
+//        plan_succuse_flag = false;
+//      }
       return plan;
   }
 };  // namespace youibot_rrt

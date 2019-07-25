@@ -9,4 +9,5 @@ RRTPlanner:
   run_time: 5
   max_iterations: 200000
   goal_radius: 0.8
+  checking_radius: 8
   

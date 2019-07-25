@@ -253,8 +253,14 @@ class RRTPlanner : public nav_core::BaseGlobalPlanner {
      * @brief List of vertices
      */
      std::vector<youibot_rrt::Vertex> vertex_list_;
-
+     /**
+     * @brief flag of whether getting succuseful path
+     */
      bool plan_succuse_flag = false;
+      /**
+     * @brief Heurestic cost checking radius
+     */
+     float checking_radius_;
 };
 }  // namespace youibot_rrt
 #endif  // INCLUDE_YOUIBOT_RRT_YOUIBOT_RRT_H_
