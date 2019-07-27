@@ -104,6 +104,7 @@ namespace youibot_rrt {
       y_origin_ = start.pose.position.y;
       x_goal_ = goal.pose.position.x;
       y_goal_ = goal.pose.position.y;
+      // ROS_INFO("%.2f %.2f %.2f %.2f",x_origin_,y_origin_,x_goal_,y_goal_);
 
       // Initialize root node
       youibot_rrt::Vertex root(x_origin_, y_origin_, 0, -1, 0);
@@ -121,7 +122,6 @@ namespace youibot_rrt {
 
       // Have the RRTPlanner calculate the path. Returns the index of the node
       // that reaches the goal
-      ROS_INFO("Going into FindPath");
       int goal_index = RRTPlanner::FindPath(start, goal);
 
       // Rebuild the plan from the goal_index to the start using the
@@ -149,8 +149,6 @@ namespace youibot_rrt {
 //        }
 //        return true;
 //    }
-
-
   }
 
   std::pair<float, float> RRTPlanner::GetRandomPoint(const geometry_msgs::PoseStamped& goal) {
@@ -181,13 +179,13 @@ namespace youibot_rrt {
 
   int RRTPlanner::FindPath(const geometry_msgs::PoseStamped& start,
                            const geometry_msgs::PoseStamped& goal) {
+    ROS_INFO("Going into FindPath");
     bool done = false;
     int goal_index = -1;
     current_iterations_ = 0;
 
     // Run until we either find the goal or reach the max iterations
     while (!done && current_iterations_ < max_iterations_) {
-      ROS_DEBUG("Finding the path.");
 
       // get a random point on the map
       std::pair<float, float> random_point = RRTPlanner::GetRandomPoint(goal);
@@ -268,12 +266,10 @@ namespace youibot_rrt {
 
   bool RRTPlanner::MoveTowardsPoint(int closest_vertex,
                                     std::pair<float, float> random_point) {
-    ROS_DEBUG("In MoveTowardsPoint");
     float x_closest = vertex_list_.at(closest_vertex).get_location().first;
     float y_closest = vertex_list_.at(closest_vertex).get_location().second;
     float x_random = random_point.first;
     float y_random = random_point.second;
-
     // get the angle between the random point and our closest point (in rads)
     float theta = atan2(y_random - y_closest, x_random - x_closest);
 
@@ -281,7 +277,6 @@ namespace youibot_rrt {
     // the random point
     float new_x = x_closest + step_size_ * cos(theta);
     float new_y = y_closest + step_size_ * sin(theta);
-
     std::pair<float, float> proposed_point(new_x, new_y);
     std::pair<float, float> closest_point(x_closest, y_closest);
 
@@ -291,8 +286,6 @@ namespace youibot_rrt {
       // If safe, add new Vertex to the back of vertex_list_
       youibot_rrt::Vertex new_vertex(new_x, new_y, vertex_list_.size(), closest_vertex,
                                        vertex_list_.at(closest_vertex).get_distance_cost() + GetDistance(proposed_point,closest_point));
-      ROS_DEBUG("Added new vertex at: %.5f, %.5f, index: %d",
-               new_x, new_y, new_vertex.get_index());
       /*
         RRT Star
        */
@@ -340,15 +333,14 @@ namespace youibot_rrt {
     // first check to make sure the end point is safe. Saves us processing
     // time if somebody wants to jump into the middle of an obstacle
     costmap_->worldToMap(end_point.first, end_point.second, map_x, map_y);
-    if (!obstacle_map_.at(map_y * map_height_cells_ + map_x))
-        return false;
-
+    if (!obstacle_map_.at(map_y * map_width_cells_ + map_x -1)){
+      return false;
+    }
     // check the path at intervals of delta for collision
     float theta = atan2(end_point.second - start_point.second,
                         end_point.first - start_point.first);
     float current_x = start_point.first;
     float current_y = start_point.second;
-
     ROS_DEBUG("Testing proposed point %.5f, %.5f.", end_point.first,
                                                     end_point.second);
 
@@ -357,13 +349,13 @@ namespace youibot_rrt {
       // increment towards end point
       current_x += delta_ * cos(theta);
       current_y += delta_ * sin(theta);
-
       // convert world coords to map coords
       costmap_->worldToMap(current_x, current_y, map_x, map_y);
-
       // check for collision
-      if (!obstacle_map_.at(map_y * map_height_cells_ + map_x))
+      if (!obstacle_map_.at(map_y * map_width_cells_ + map_x -1)){
         return false;
+      }
+        
     }
     return true;
   }
