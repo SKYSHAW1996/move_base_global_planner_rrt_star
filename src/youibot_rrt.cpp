@@ -68,7 +68,7 @@ namespace youibot_rrt {
 
       // Display info message
       ROS_INFO("RRT planner initialized successfully.");
-      plan_pub_ = node_handle_.advertise<nav_msgs::Path>("global planner", 1);
+      plan_pub_ = node_handle_.advertise<nav_msgs::Path>("global_planner", 1);
       initialized_ = true;
     }
     else 
