@@ -6,7 +6,7 @@
 #include <pluginlib/class_list_macros.h>
 #include "youibot_rrt/youibot_rrt.h"
 #include "youibot_rrt/vertex.h"
-
+#include <nav_msgs/Path.h>
 #include <tf/transform_broadcaster.h>
 #include <math.h>
 
@@ -68,6 +68,7 @@ namespace youibot_rrt {
 
       // Display info message
       ROS_INFO("RRT planner initialized successfully.");
+      plan_pub_ = node_handle_.advertise<nav_msgs::Path>("global planner", 1);
       initialized_ = true;
     }
     else 
@@ -131,6 +132,19 @@ namespace youibot_rrt {
 
       if (plan.size() > 1) {
         ROS_INFO("A path was found.");
+		  ros::Time plan_time = ros::Time::now();
+
+		  //create a message for the plan
+		  nav_msgs::Path gui_path;
+		  gui_path.poses.resize(plan.size());
+		  gui_path.header.frame_id = costmap_ros_->getGlobalFrameID();
+		  gui_path.header.stamp = plan_time;
+		  for(unsigned int i=0; i<plan.size(); i++){
+		    gui_path.poses[i].pose.position.x = plan[i].pose.position.x;
+		    gui_path.poses[i].pose.position.y = plan[i].pose.position.y;
+		    gui_path.poses[i].pose.position.z = plan[i].pose.position.z;
+		  }
+		  plan_pub_.publish(gui_path);
         return true;
       } else {
         ROS_WARN("No path was found.");

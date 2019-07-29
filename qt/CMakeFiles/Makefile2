@@ -63,7 +63,6 @@ CMAKE_BINARY_DIR = /home/sikai/catkin_ws_project/src/youibot_rrt/qt
 # Target rules for target CMakeFiles/youibot_rrt.dir
 
 # All Build rule for target.
-CMakeFiles/youibot_rrt.dir/all: CMakeFiles/base_local_planner_gencfg.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/base_local_planner_generate_messages_py.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/base_local_planner_generate_messages_lisp.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/base_local_planner_generate_messages_eus.dir/all
@@ -107,6 +106,7 @@ CMakeFiles/youibot_rrt.dir/all: CMakeFiles/rosgraph_msgs_generate_messages_cpp.d
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/pcl_msgs_generate_messages_eus.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/tf_generate_messages_eus.dir/all
+CMakeFiles/youibot_rrt.dir/all: CMakeFiles/base_local_planner_gencfg.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/sensor_msgs_generate_messages_py.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/roscpp_generate_messages_nodejs.dir/all
 CMakeFiles/youibot_rrt.dir/all: CMakeFiles/pcl_msgs_generate_messages_nodejs.dir/all

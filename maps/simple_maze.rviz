@@ -6,7 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Map1/Position1
-        - /Image1
+        - /Path1
       Splitter Ratio: 0.5
     Tree Height: 545
   - Class: rviz/Selection

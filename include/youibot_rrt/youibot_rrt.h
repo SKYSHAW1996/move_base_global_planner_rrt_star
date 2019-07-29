@@ -164,6 +164,7 @@ class RRTPlanner : public nav_core::BaseGlobalPlanner {
                  std::pair<float, float> end_point);
 
  private:
+     ros::Publisher plan_pub_;
      /**
      * @brief ROS node handle
      */
