@@ -1,7 +1,7 @@
 <library path="lib/libyouibot_rrt">
   <class name="youibot_rrt/RRTPlanner" type="youibot_rrt::RRTPlanner" base_class_type="nav_core::BaseGlobalPlanner">
     <description>
-      This is an RRT global planner plugin.
+      This is an RRT* global planner plugin.
     </description>
   </class>
 </library>
